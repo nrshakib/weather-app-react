@@ -59,17 +59,35 @@ const WeatherForecast = ({ data, unit }) => {
         {filteredForecast.map((forecast, index) => (
           <div
             key={index}
-            className={`text-center p-4 rounded-lg transition-transform transform hover:scale-110 ${getBackgroundColor(
+            className={`text-center p-4 rounded-lg transition-transform transform hover:scale-110 hover:bg-gray-800 hover:text-white ${getBackgroundColor(
               list[0].weather[0].main
             )}`}
           >
-            <div>{new Date(forecast.dt * 1000).toLocaleDateString()}</div>
-            <div>{new Date(forecast.dt * 1000).toLocaleTimeString()}</div>
-            <div className="text-lg font-bold">
-              {Math.round(convertTemperature(temperature, unit))}
-              {unit === "metric" ? "°C" : "°F"}
+            <div>
+              Date:{" "}
+              <span className="font-semibold">
+                {new Date(forecast.dt * 1000).toLocaleDateString()}
+              </span>
             </div>
-            <div className="capitalize">{forecast.weather[0].description}</div>
+            <div>
+              Local Time:{" "}
+              <span className="font-semibold">
+                {new Date(forecast.dt * 1000).toLocaleTimeString()}
+              </span>
+            </div>
+            <div>
+              Temp:{" "}
+              <span className="text-lg font-bold">
+                {Math.round(convertTemperature(temperature, unit))}
+                {unit === "metric" ? "°C" : "°F"}
+              </span>
+            </div>
+            <div className="capitalize">
+              Condition:{" "}
+              <span className="text-lg font-semibold">
+                {forecast.weather[0].description}
+              </span>
+            </div>
           </div>
         ))}
       </div>

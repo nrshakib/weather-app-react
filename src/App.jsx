@@ -13,19 +13,19 @@ const App = () => {
   const [error, setError] = useState(null);
   const [unit, setUnit] = useState("metric");
   const [backgroundColor, setBackgroundColor] = useState("");
-  // const [weatherHistory, setWeatherHistory] = useState([]);
+  const [weatherHistory, setWeatherHistory] = useState([]);
 
   useEffect(() => {
     const defaultLocation = "Dhaka"; // Default location
     fetchWeather(defaultLocation);
   }, []);
 
-  // useEffect(() => {
-  //   const storedHistory = JSON.parse(localStorage.getItem("weatherHistory"));
-  //   if (soredHistory) {
-  //     setWeatherHistory(storedHistory);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storedHistory = JSON.parse(localStorage.getItem("weatherHistory"));
+    if (storedHistory) {
+      setWeatherHistory(storedHistory);
+    }
+  }, []);
 
   const fetchWeather = async (location) => {
     setLoading(true);
@@ -85,22 +85,33 @@ const App = () => {
         )}
         <ToggleUnits unit={unit} onChange={handleToggleUnits} />
         {forecastData && <WeatherForecast data={forecastData} unit={unit} />}
-        {/* <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Weather History</h2>
-          <div className="flex gap-1">
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4 text-center underline">Weather History</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
             {weatherHistory.map((weather, index) => (
-              <div key={index} className="bg-gray-400 p-4 rounded-md mb-2">
-                <div>
+              <div
+                key={index}
+                className=" bg-gray-800 text-white p-4 rounded-md mb-2 transition-transform transform hover:scale-110 hover:bg-gray-700"
+              >
+                <p className="text-xl font-semibold">
                   {weather.name}, {weather.sys.country}
-                </div>
-                <div>{weather.weather[0].main}</div>
-                <div>{new Date(weather.dt * 1000).toLocaleDateString()}</div>
-                <div>{new Date(weather.dt * 1000).toLocaleTimeString()}</div>
-                <div>{weather.main.temp}°C</div>
+                </p>
+                <p className="text-gray-300">
+                  Condition: {weather.weather[0].main}
+                </p>
+                <p className="text-gray-300">
+                  Date: {new Date(weather.dt * 1000).toLocaleDateString()}
+                </p>
+                <p className="text-gray-300">
+                  Local Time: {new Date(weather.dt * 1000).toLocaleTimeString()}
+                </p>
+                <p className="text-gray-300">
+                  Temperature: {weather.main.temp}°C
+                </p>
               </div>
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

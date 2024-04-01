@@ -2,6 +2,7 @@ import { useState } from "react";
 import CurrentWeather from "./assets/components/CurrentWeather";
 import SearchBar from "./assets/components/SearchBar";
 import { getCurrentWeatherData } from "./assets/API/Api";
+import ToggleUnits from "./assets/components/ToggleUnits";
 
 const App = () => {
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
@@ -18,10 +19,17 @@ const App = () => {
       setLoading(false);
     }
   };
+  const handleToggleUnits = (newUnit) => {
+    setUnit(newUnit);
+    if (currentWeatherData) {
+      fetchWeather(currentWeatherData.name);
+    }
+  };
   return (
     <div>
-      <SearchBar onSearch={fetchWeather}/>
+      <SearchBar onSearch={fetchWeather} />
       <CurrentWeather data={currentWeatherData} unit={unit} />
+      <ToggleUnits unit={unit} onChange={handleToggleUnits} />
     </div>
   );
 };

@@ -1,10 +1,25 @@
+import { useEffect, useState } from "react";
+
 const WeatherForecast = ({ data, unit }) => {
   const { list } = data;
+  //   const [temperatures, setTemperatures] = useState([]);
+  const [filteredForecast, setFilteredForecast] = useState([]);
 
-  // Filter forecast data to include only forecasts with a difference of 24 hours
-  const filteredForecast = list.filter(
-    (forecast, index) => index % 8 === 0 && index < 40
-  );
+  useEffect(() => {
+    const filteredData = list.filter((forecast, index) => index % 8 === 0); // Filter data to include every 8th forecast (24-hour gap)
+    const convertedData = filteredData.map((forecast) => ({
+      ...forecast,
+      temperature: {
+        celsius: forecast.main.temp,
+        fahrenheit: (forecast.main.temp * 9) / 5 + 32,
+      },
+    }));
+    setFilteredForecast(convertedData);
+  }, [list]);
+
+  const convertTemperature = (temperature) => {
+    return unit === "metric" ? temperature.celsius : temperature.fahrenheit;
+  };
 
   const getBackgroundColor = (weatherCondition) => {
     switch (weatherCondition) {
@@ -37,7 +52,8 @@ const WeatherForecast = ({ data, unit }) => {
             <div>{new Date(forecast.dt * 1000).toLocaleDateString()}</div>
             <div>{new Date(forecast.dt * 1000).toLocaleTimeString()}</div>
             <div className="text-lg font-bold">
-              {Math.round(forecast.main.temp)} {unit === "metric" ? "°C" : "°F"}
+              {Math.round(convertTemperature(forecast.temperature))}
+              {unit === "metric" ? "°C" : "°F"}
             </div>
             <div className="capitalize">{forecast.weather[0].description}</div>
           </div>

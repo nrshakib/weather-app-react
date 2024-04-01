@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const CurrentWeather = ({ data, unit }) => {
   const { main, weather, name, sys } = data;
-  console.log(weather);
+  console.log(data);
   const [temperature, setTemperature] = useState({
     celsius: main.temp,
     fahrenheit: (main.temp * 9) / 5 + 32,
@@ -28,18 +28,18 @@ const CurrentWeather = ({ data, unit }) => {
   // Function to determine background color based on weather description
   const getBackgroundColor = (description) => {
     if (description.includes("clear")) {
-      return "bg-blue-300"; // Define your own class for clear weather
+      return "bg-blue-300";
     } else if (description.includes("clouds")) {
-      return "bg-gray-800 text-white"; // Define your own class for cloudy weather
+      return "bg-gray-800 text-white";
     } else if (
       description.includes("rain") ||
       description.includes("drizzle")
     ) {
-      return "bg-gray-300"; // Define your own class for rainy weather
+      return "bg-gray-300";
     } else if (description.includes("haze")) {
-      return "bg-gray-500"; // Define your own class for snowy weather
+      return "bg-gray-500";
     } else {
-      return "bg-black text-white"; // Default background color
+      return "bg-black text-white";
     }
   };
   return (

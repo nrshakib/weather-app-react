@@ -33,20 +33,21 @@ const WeatherForecast = ({ data, unit }) => {
     return convertedTemp;
   };
 
-  const getBackgroundColor = (weatherCondition) => {
-    switch (weatherCondition) {
-      case "Clear":
-        return "bg-blue-300"; // Light blue for clear skies
-      case "Clouds":
-        return "bg-gray-400"; // Gray for cloudy weather
-      case "Clear Sky":
-        return "bg-blue-600"; // Dark gray for rain
-      case "Thunderstorm":
-        return "bg-gray-800"; // Darker gray for thunderstorms
-      case "Snow":
-        return "bg-white"; // White for snow
-      default:
-        return "bg-gray-100"; // Light gray for other conditions
+  // Function to determine background color based on weather description
+  const getBackgroundColor = (description) => {
+    if (description.includes("clear")) {
+      return "bg-blue-300";
+    } else if (description.includes("clouds")) {
+      return "bg-gray-600 text-white";
+    } else if (
+      description.includes("rain") ||
+      description.includes("drizzle")
+    ) {
+      return "bg-gray-300";
+    } else if (description.includes("haze")) {
+      return "bg-gray-500";
+    } else {
+      return "bg-black text-white";
     }
   };
 
@@ -60,7 +61,7 @@ const WeatherForecast = ({ data, unit }) => {
           <div
             key={index}
             className={`text-center p-4 rounded-lg transition-transform transform hover:scale-110 hover:bg-gray-800 hover:text-white ${getBackgroundColor(
-              list[0].weather[0].main
+              list[0].weather[0].description
             )}`}
           >
             <div>

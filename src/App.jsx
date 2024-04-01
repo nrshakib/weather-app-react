@@ -1,6 +1,6 @@
 // App.js
 import { useState, useEffect } from "react";
-import { getCurrentWeatherData } from "./assets/API/Api";
+import { getCurrentWeatherData, getForecastData } from "./assets/API/Api";
 import SearchBar from "./assets/components/SearchBar";
 import ToggleUnits from "./assets/components/ToggleUnits";
 import CurrentWeather from "./assets/components/CurrentWeather";
@@ -51,8 +51,20 @@ const App = () => {
   };
 
   const getBackgroundColor = (weatherCondition) => {
-    // Determine background color based on weather condition
-    // Same as previous implementation
+    switch (weatherCondition) {
+      case "Clear":
+        return "bg-blue-300"; // Light blue for clear skies
+      case "Clouds":
+        return "bg-gray-400"; // Gray for cloudy weather
+      case "Rain":
+        return "bg-gray-600"; // Dark gray for rain
+      case "Thunderstorm":
+        return "bg-gray-800"; // Darker gray for thunderstorms
+      case "Snow":
+        return "bg-white"; // White for snow
+      default:
+        return "bg-gray-100"; // Light gray for other conditions
+    }
   };
 
   const addToWeatherHistory = (weatherData) => {

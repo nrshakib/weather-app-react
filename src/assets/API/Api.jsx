@@ -12,3 +12,14 @@ export const getCurrentWeatherData = async (location, unit) => {
   const data = await response.json();
   return data;
 };
+
+export const getForecastData = async (location, unit) => {
+  const response = await fetch(
+    `${API_URL}/forecast?q=${location}&units=${unit}&appid=${API_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch forecast data");
+  }
+  const data = await response.json();
+  return data;
+};

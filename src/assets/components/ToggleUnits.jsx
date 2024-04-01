@@ -4,7 +4,7 @@ const ToggleUnits = ({ unit, onChange }) => {
   };
 
   return (
-    <div className="text-center mb-4">
+    <div className="text-center mb-4 mt-2">
       <button
         onClick={handleToggle}
         className="bg-gray-700 text-white px-3 py-2 rounded-md hover:bg-gray-600 focus:outline-none"

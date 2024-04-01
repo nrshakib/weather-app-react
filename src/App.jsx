@@ -13,19 +13,19 @@ const App = () => {
   const [error, setError] = useState(null);
   const [unit, setUnit] = useState("metric");
   const [backgroundColor, setBackgroundColor] = useState("");
-  const [weatherHistory, setWeatherHistory] = useState([]);
+  // const [weatherHistory, setWeatherHistory] = useState([]);
 
   useEffect(() => {
     const defaultLocation = "Dhaka"; // Default location
     fetchWeather(defaultLocation);
   }, []);
 
-  useEffect(() => {
-    const storedHistory = JSON.parse(localStorage.getItem("weatherHistory"));
-    if (storedHistory) {
-      setWeatherHistory(storedHistory);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedHistory = JSON.parse(localStorage.getItem("weatherHistory"));
+  //   if (soredHistory) {
+  //     setWeatherHistory(storedHistory);
+  //   }
+  // }, []);
 
   const fetchWeather = async (location) => {
     setLoading(true);
@@ -85,7 +85,7 @@ const App = () => {
         )}
         <ToggleUnits unit={unit} onChange={handleToggleUnits} />
         {forecastData && <WeatherForecast data={forecastData} unit={unit} />}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Weather History</h2>
           <div className="flex gap-1">
             {weatherHistory.map((weather, index) => (
@@ -100,7 +100,7 @@ const App = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

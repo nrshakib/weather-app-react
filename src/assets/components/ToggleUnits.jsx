@@ -1,6 +1,17 @@
 const ToggleUnits = ({ unit, onChange }) => {
+  let buttonText;
+  if (unit === "metric") {
+    buttonText = "Switch to Fahrenheit";
+  } else if (unit === "imperial") {
+    buttonText = "Switch to Celsius";
+  }
+
   const handleToggle = () => {
-    onChange(unit === "metric" ? "imperial" : "metric");
+    if (unit === "metric") {
+      onChange("imperial");
+    } else if (unit === "imperial") {
+      onChange("metric");
+    }
   };
 
   return (
@@ -9,7 +20,7 @@ const ToggleUnits = ({ unit, onChange }) => {
         onClick={handleToggle}
         className="bg-gray-700 text-white px-3 py-2 rounded-md hover:bg-gray-600 focus:outline-none"
       >
-        {unit === "metric" ? "Switch to Fahrenheit" : "Switch to Celsius"}
+        {buttonText}
       </button>
     </div>
   );

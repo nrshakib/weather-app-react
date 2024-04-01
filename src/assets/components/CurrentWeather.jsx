@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const CurrentWeather = ({ data, unit }) => {
   const { main, weather, name, sys } = data;
+  // console.log(main);
   const [temperature, setTemperature] = useState({
     celsius: main.temp,
     fahrenheit: (main.temp * 9) / 5 + 32,
@@ -34,7 +35,7 @@ const CurrentWeather = ({ data, unit }) => {
         <div className="text-lg">{currentTime}</div>
       </div>
       <div className="text-xl">
-        Temp: {Math.round(convertTemperature(temperature, unit))}{" "}
+        Temp: {Math.round(convertTemperature(temperature, unit))}
         {unit === "metric" ? "°C" : "°F"}
       </div>
       <div className="text-lg capitalize">
